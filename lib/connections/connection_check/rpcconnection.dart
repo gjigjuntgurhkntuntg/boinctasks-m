@@ -7,11 +7,13 @@ import 'package:boinctasks/main.dart';
 import 'package:crypto/crypto.dart';
 import 'package:xml2json/xml2json.dart';
 
+var giLogging = 0;
+
 class RpcConnection{
   late Socket mSocket;
   var mIp = "0";
   var mPort = 0;
-  var mPassword = "";
+  var mPassword = "";       
   var mSocketError = txtSocketUndefined;
   var mbSocketValid = false;
   var mbAuthenticated = false;
@@ -206,6 +208,9 @@ Future<void> rpcMakeConnection(int i,computer,ip,port,password,callback) async {
             {
               var nonce = auth2["nonce"]["\$t"];
               var np = nonce + mPassword;
+
+              var logDebug = 'RpcConnection (authenticate1) $mComputer,  $mIp : $mPort, np: $np';
+              gLogging.addToDebugLogging(logDebug);            
               var hash = md5.convert(utf8.encode(np)).toString();
               var req = "<auth2>\n<nonce_hash>$hash</nonce_hash>\n</auth2>\n";
               sendRequest(req, cAuthenticate2);
@@ -232,12 +237,15 @@ Future<void> rpcMakeConnection(int i,computer,ip,port,password,callback) async {
             var auth2 = auth[cBoincReply];
             if (auth2.containsKey("authorized"))
             {
+              giLogging = 0;
               mbAuthenticated = true;
               isAuthenticated();           
               return;           
             }
-          }
+          }       
         }
+        var logDebug = 'Rpcconnection (authenticate2) Password error: $mComputer, ip: $mIp, port: $mPort, pw: $mPassword'; 
+        gLogging.addToDebugLogging(logDebug);         
         mbAuthenticated = false;               
         mCallback(this,mComputerIndex,false);
     } catch (error) {

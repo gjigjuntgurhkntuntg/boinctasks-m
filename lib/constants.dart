@@ -312,3 +312,5 @@ const cHeaderPerc   = 3;
 const cWidthShowButtonsAll2 = 1000;
 const cWidthShowButtonsAll = 850;
 const cWidthShowButtons = 700;
+
+const cMaxLogLength = 60000;

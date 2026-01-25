@@ -1097,6 +1097,9 @@ void checkConnection()
           // tab popup
           PopupMenuButton(
             icon: const Icon(Icons.task_alt),
+            onOpened: () {
+              delayIos();
+            },
             itemBuilder: (context) => menuItems.map((e) => PopupMenuItem(value: e, child: Text(e))).toList(),
               onSelected: (command) {
                 switch(command)
@@ -1132,6 +1135,9 @@ void checkConnection()
           // select tab
           PopupMenuButton<String>(
             icon: const Icon(Icons.list),
+            onOpened: () {
+              delayIos();
+            },
             onSelected: (String value) {
               setState(() {
                 if (value == "notices")
@@ -1195,6 +1201,9 @@ void checkConnection()
           // menu settings
           PopupMenuButton<String>(    
             icon: const Icon(Icons.settings),
+            onOpened: () {
+              delayIos();
+            },            
             itemBuilder: (BuildContext context) => [
                 PopupMenuItem( 
                   onTap: () {
@@ -1401,6 +1410,13 @@ void checkConnection()
       )      
     )
     );   
+  }
+
+  void delayIos()
+  {
+    if (Platform.isIOS) {
+      sleep(Duration(milliseconds:400));
+    }
   }
 
   Widget drawColumn(dynamic v,col)

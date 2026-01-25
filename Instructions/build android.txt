@@ -1,0 +1,29 @@
+Android:
+// Separate Debug
+D:\Programma\BoincTasks\BoincTasks-M\boinctasks\android\app\build.gradle
+    buildTypes {
+        debug { <-- add
+            applicationIdSuffix = ".debug"
+        }
+
+flutter build appbundle            //for app store
+D:\Programma\BoincTasks\BoincTasks-M\boinctasks\build\app\outputs\bundle\release
+Test and release
+Testing
+Open Testing
+Create new release
+Move the appbundle
+
+To install on device:
+
+flutter build apk                   //to build apk
+flutter install                     //install on device
+D:\Programma\BoincTasks\BoincTasks-M\boinctasks\build\app\outputs\apk\release
+
+Android:
+
+Settings > About phone > Build number tap 7 times on Build number
+Developer options -> USB Debugging enable
+On a Pixel 8Pro no device is found for debugging unless USB preferences is set to "No data trasfer"
+
+https://docs.flutter.dev/deployment/android

@@ -78,6 +78,17 @@ class BtLogging
     return mGotVersion;
   }
 
+  String isTooLong(String txt)
+  {
+    var len = txt.length;
+    if (len > cMaxLogLength)
+    {
+      var tooLong = len - cMaxLogLength;
+      txt = txt.substring(tooLong);
+    } 
+    return txt;
+  }
+
   void addToLogging(String addTxt, [bFirst = false])
   {
     var log = "";
@@ -85,6 +96,8 @@ class BtLogging
     time += getTime();
     log+= time;
     log+= addTxt;
+
+    gLogTxt = isTooLong(gLogTxt);
 
     if (bFirst)
     {
@@ -103,6 +116,8 @@ class BtLogging
     var time = getTime();
     log+= time;
     log+= addTxt;
+
+    gLogTxtDebug = isTooLong(gLogTxtDebug);
 
     if (bFirst)
     {
@@ -124,6 +139,9 @@ class BtLogging
     var time = getTime();
     log+= time;
     log+= addTxt;
+
+
+    gLogTxtError = isTooLong(gLogTxtError);
 
     if (bFirst)
     {

@@ -107,6 +107,11 @@ class BoincState {
   void setState(dynamic state)
   {
     try{
+      if (state == null)
+      {
+        mbStateNeedsUpdate = true;
+        return;
+      }
       mState = state;
       mbStateNeedsUpdate = false;
       if (mState.isNotEmpty)

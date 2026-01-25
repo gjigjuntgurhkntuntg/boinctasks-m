@@ -1262,8 +1262,10 @@ class Rpc {
           if (auth2.containsKey("nonce"))
           {
             var nonce = auth2["nonce"]["\$t"];
-            gLogging.addToDebugLogging('Rpc (authenticate1) $mComputer,  $mIp : $mPort, nonce: $nonce');
             var np = nonce + mPassword;
+
+            gLogging.addToDebugLogging('Rpc (authenticate1) $mComputer,  $mIp : $mPort, np: $np');
+            
             var hash = md5.convert(utf8.encode(np)).toString();
             var req = "<auth2>\n<nonce_hash>$hash</nonce_hash>\n</auth2>\n";
             sendRequest(req, cAuthenticate2);
@@ -1293,7 +1295,7 @@ class Rpc {
           }
         }
         mbAuthenticated = false; 
-        gLogging.addToDebugLogging('Rpc (authenticate2) Password error $mIp : $mPort');
+        gLogging.addToDebugLogging('Rpc (authenticate2) Password error: $mComputer, $mIp : $mPort');      
         invalidateSocket();
     } catch (error) {
       invalidateSocket();

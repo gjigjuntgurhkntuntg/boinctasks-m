@@ -306,7 +306,7 @@ class RpcCheckConnection {
             var statusTxt = gComputerList[iCompList][cComputerStatus];
             var ipTxt = gComputerList[iCompList][cComputerIp];
             var portTxt = gComputerList[iCompList][cComputerPort];
-          gLogging.addToLogging('$computerName ($ipTxt:$portTxt): $statusTxt');
+            gLogging.addToLogging('$computerName ($ipTxt:$portTxt): $statusTxt');
           }  
         }
       }
