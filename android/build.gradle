@@ -58,6 +58,28 @@ subprojects { project ->
             }
         }
     }
+    
+    // Fix for network_info_plus and other Flutter plugins that reference flutter extension
+    if (project.name == 'network_info_plus' || project.name.contains('network_info')) {
+        project.afterEvaluate {
+            if (project.hasProperty('android')) {
+                project.android {
+                    compileSdkVersion rootProject.ext.compileSdkVersion
+                    buildToolsVersion rootProject.ext.buildToolsVersion
+                    
+                    defaultConfig {
+                        minSdk rootProject.ext.minSdk
+                        targetSdk rootProject.ext.targetSdk
+                    }
+                    
+                    compileOptions {
+                        sourceCompatibility JavaVersion.VERSION_1_8
+                        targetCompatibility JavaVersion.VERSION_1_8
+                    }
+                }
+            }
+        }
+    }
 }
 
 rootProject.buildDir = "../build"
