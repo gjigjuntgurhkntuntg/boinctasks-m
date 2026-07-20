@@ -1,3 +1,16 @@
+buildscript {
+    ext.kotlin_version = '2.1.0'
+    repositories {
+        google()
+        mavenCentral()
+    }
+
+    dependencies {
+        classpath 'com.android.tools.build:gradle:8.7.0'
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+    }
+}
+
 allprojects {
     repositories {
         google()
@@ -5,13 +18,50 @@ allprojects {
     }
 }
 
-rootProject.buildDir = "../build"
+// Define default SDK versions for plugins that don't specify them
+ext {
+    compileSdkVersion = 34
+    buildToolsVersion = '34.0.0'
+    minSdk = 21
+    targetSdk = 34
+}
+
 subprojects {
     project.buildDir = "${rootProject.buildDir}/${project.name}"
-}
-subprojects {
     project.evaluationDependsOn(":app")
+    
+    // Fix for network_info_plus and other plugins that need flutter extension
+    if (project.hasProperty('android')) {
+        project.android {
+            if (namespace == null || namespace.isEmpty()) {
+                namespace = group ?: "com.example.${project.name}"
+            }
+        }
+    }
+    
+    // Set default compileSdkVersion for plugins that don't specify it
+    afterEvaluate { project ->
+        if (project.plugins.hasPlugin('com.android.application') || 
+            project.plugins.hasPlugin('com.android.library')) {
+            project.android {
+                compileSdkVersion rootProject.ext.compileSdkVersion
+                buildToolsVersion rootProject.ext.buildToolsVersion
+                
+                defaultConfig {
+                    minSdk rootProject.ext.minSdk
+                    targetSdk rootProject.ext.targetSdk
+                }
+                
+                compileOptions {
+                    sourceCompatibility JavaVersion.VERSION_1_8
+                    targetCompatibility JavaVersion.VERSION_1_8
+                }
+            }
+        }
+    }
 }
+
+rootProject.buildDir = "../build"
 
 tasks.register("clean", Delete) {
     delete rootProject.buildDir
