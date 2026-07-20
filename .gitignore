@@ -1,27 +1,16 @@
 ```
-# Gradle and Android build artifacts
-.gradle/
+# Build artifacts
 build/
-*.apk
-*.aar
-*.jar
-local.properties
-
-# IDE files
-.idea/
-*.iml
-*.iws
-.vscode/
-
-# Logs
-*.log
+.gradle/
 
 # Environment
 .env
 .env.local
 *.env.*
 
+# Logs
+*.log
+
 # Dependencies
 node_modules/
-**/node_modules/
 ```
