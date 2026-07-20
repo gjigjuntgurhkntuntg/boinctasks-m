@@ -1,25 +1,76 @@
 ```
 # Dependencies
-.dart_tool/
-.packages
-.pub/
-pubspec.lock
+node_modules/
+.gradle/
+target/
 
-# Logs and temp files
-*.log
-*.tmp
-*.swp
+# Build artifacts
+build/
+dist/
 
 # Environment
 .env
 .env.local
-*.env.*
+.env.*
+
+# Logs
+*.log
 
 # Editors
 .vscode/
 .idea/
 
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+env/
+venv/
+.venv/
+.ENV
+.python-version
+pip-log.txt
+pip-delete-this-directory.txt
+.tox/
+.coverage
+.coverage.*
+.cache
+nosetests.xml
+coverage.xml
+*.cover
+*.log
+.git/modules/
+*.bin
+*.dex
+*.so
+
+# Android
+*.apk
+*.ap_
+*.aab
+*.aar
+local.properties
+.gradle/
+.proguard/
+captures/
+.externalNativeBuild
+.intermediates
+.kotlin
+build/
+!gradle-wrapper.jar
+
+# Gradle
+.gradle/
+build/
+
 # OS generated files
 .DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
 Thumbs.db
 ```

@@ -15,8 +15,10 @@ def keystorePropertiesFile = rootProject.file("../../key/android/key.properties"
 // Initialize a new Properties() object called keystoreProperties.
 def keystoreProperties = new Properties()
 
-// Load your keystore.properties file into the keystoreProperties object.
-keystoreProperties.load(new FileInputStream(keystorePropertiesFile))
+// Load your keystore.properties file into the keystoreProperties object if it exists.
+if (keystorePropertiesFile.exists()) {
+    keystoreProperties.load(new FileInputStream(keystorePropertiesFile))
+}
 
 android {
     namespace = "com.efmer.boinctasks_m"
@@ -48,14 +50,12 @@ android {
     }
     signingConfigs {
         create("release") {
-           // keyAlias = keystoreProperties["keyAlias"] as String
-           // keyPassword = keystoreProperties["keyPassword"] as String
-           // storeFile = keystoreProperties["storeFile"]?.let { file(it) }
-           // storePassword = keystoreProperties["storePassword"] as String
-            keyAlias keystoreProperties['keyAlias']
-            keyPassword keystoreProperties['keyPassword']
-            storeFile file(keystoreProperties['storeFile'])
-            storePassword keystoreProperties['storePassword']
+            if (keystorePropertiesFile.exists()) {
+                keyAlias keystoreProperties['keyAlias']
+                keyPassword keystoreProperties['keyPassword']
+                storeFile file(keystoreProperties['storeFile'])
+                storePassword keystoreProperties['storePassword']
+            }
         }
     }
 
@@ -65,7 +65,11 @@ android {
             // Signing with the debug keys for now, so `flutter run --release` works.
             // signingConfig = signingConfigs.debug
             //signingConfig = signingConfigs.release
-            signingConfig = signingConfigs.getByName("release")
+            if (keystorePropertiesFile.exists()) {
+                signingConfig = signingConfigs.getByName("release")
+            } else {
+                signingConfig = signingConfigs.debug
+            }
         }
         debug {
             applicationIdSuffix = ".debug"
