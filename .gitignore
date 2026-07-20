@@ -1,76 +1,27 @@
 ```
-# Dependencies
-node_modules/
+# Gradle and Android build artifacts
 .gradle/
-target/
-
-# Build artifacts
 build/
-dist/
+*.apk
+*.aar
+*.jar
+local.properties
 
-# Environment
-.env
-.env.local
-.env.*
+# IDE files
+.idea/
+*.iml
+*.iws
+.vscode/
 
 # Logs
 *.log
 
-# Editors
-.vscode/
-.idea/
+# Environment
+.env
+.env.local
+*.env.*
 
-# Python
-__pycache__/
-*.pyc
-*.pyo
-*.pyd
-.Python
-env/
-venv/
-.venv/
-.ENV
-.python-version
-pip-log.txt
-pip-delete-this-directory.txt
-.tox/
-.coverage
-.coverage.*
-.cache
-nosetests.xml
-coverage.xml
-*.cover
-*.log
-.git/modules/
-*.bin
-*.dex
-*.so
-
-# Android
-*.apk
-*.ap_
-*.aab
-*.aar
-local.properties
-.gradle/
-.proguard/
-captures/
-.externalNativeBuild
-.intermediates
-.kotlin
-build/
-!gradle-wrapper.jar
-
-# Gradle
-.gradle/
-build/
-
-# OS generated files
-.DS_Store
-.DS_Store?
-._*
-.Spotlight-V100
-.Trashes
-ehthumbs.db
-Thumbs.db
+# Dependencies
+node_modules/
+**/node_modules/
 ```
