@@ -28,7 +28,6 @@ ext {
 
 subprojects {
     project.buildDir = "${rootProject.buildDir}/${project.name}"
-    project.evaluationDependsOn(":app")
     
     // Fix for network_info_plus and other plugins that need flutter extension
     if (project.hasProperty('android')) {
@@ -38,24 +37,24 @@ subprojects {
             }
         }
     }
-    
-    // Set default compileSdkVersion for plugins that don't specify it
-    afterEvaluate { project ->
-        if (project.plugins.hasPlugin('com.android.application') || 
-            project.plugins.hasPlugin('com.android.library')) {
-            project.android {
-                compileSdkVersion rootProject.ext.compileSdkVersion
-                buildToolsVersion rootProject.ext.buildToolsVersion
-                
-                defaultConfig {
-                    minSdk rootProject.ext.minSdk
-                    targetSdk rootProject.ext.targetSdk
-                }
-                
-                compileOptions {
-                    sourceCompatibility JavaVersion.VERSION_1_8
-                    targetCompatibility JavaVersion.VERSION_1_8
-                }
+}
+
+// Set default compileSdkVersion for plugins that don't specify it
+subprojects { project ->
+    if (project.plugins.hasPlugin('com.android.application') || 
+        project.plugins.hasPlugin('com.android.library')) {
+        project.android {
+            compileSdkVersion rootProject.ext.compileSdkVersion
+            buildToolsVersion rootProject.ext.buildToolsVersion
+            
+            defaultConfig {
+                minSdk rootProject.ext.minSdk
+                targetSdk rootProject.ext.targetSdk
+            }
+            
+            compileOptions {
+                sourceCompatibility JavaVersion.VERSION_1_8
+                targetCompatibility JavaVersion.VERSION_1_8
             }
         }
     }
